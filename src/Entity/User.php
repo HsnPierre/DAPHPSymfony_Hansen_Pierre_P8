@@ -57,6 +57,11 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="client")
+     */
+    private $tasks;
+
     public function getId()
     {
         return $this->id;
@@ -123,5 +128,17 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    public function setTasks($tasks)
+    {
+        $this->tasks = $tasks;
+
+        return $this;
     }
 }

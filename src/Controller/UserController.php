@@ -42,8 +42,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $password = password_hash($user->getPlainPassword(), PASSWORD_DEFAULT);
-            $user->setPassword($password);
+            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPlainPassword()));
 
             $em->persist($user);
             $em->flush();
@@ -69,7 +68,7 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
