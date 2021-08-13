@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -15,6 +16,10 @@ class UserController extends AbstractController
      */
     public function listAction()
     {
+        if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+            return $this->redirectToRoute('homepage');
+        }
+        
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
 
@@ -24,8 +29,12 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+            return $this->redirectToRoute('homepage');
+        }
+        
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -33,7 +42,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+            $password = password_hash($user->getPlainPassword(), PASSWORD_DEFAULT);
             $user->setPassword($password);
 
             $em->persist($user);
@@ -50,14 +59,18 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request)
+    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles())){
+            return $this->redirectToRoute('homepage');
+        }
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $this->getDoctrine()->getManager()->flush();

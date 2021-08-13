@@ -29,6 +29,18 @@ class User implements UserInterface
     private $username;
 
     /**
+     * @Assert\NotBlank(message = "Le mot de passe ne peut être vide.")
+     * @Assert\Length(max=4096)
+     * @Assert\Regex(
+     *      pattern = "/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{12,}$/",
+     *      match = true,
+     *      message = "Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre, un caractère spécial et faire au moins 12 caractères"
+     *      
+     * )
+     */
+    private $plainPassword;
+    
+    /**
      * @ORM\Column(type="string", length=64)
      */
     private $password;
@@ -73,6 +85,16 @@ class User implements UserInterface
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     public function getEmail()
