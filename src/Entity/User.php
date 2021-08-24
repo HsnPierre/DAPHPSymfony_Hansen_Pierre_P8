@@ -58,7 +58,7 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="client")
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="author")
      */
     private $tasks;
 
