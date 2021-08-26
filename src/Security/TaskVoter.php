@@ -59,7 +59,9 @@ class TaskVoter extends Voter
 
     public function canEditorDelete(Task $task, User $user): bool
     {
-        if($user === $task->getAuthor() || $this->security->isGranted('ROLE_ADMIN')){
+        if($user === $task->getAuthor()) {
+            return true;
+        } elseif(null === $task->getAuthor() && $this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
         return false;

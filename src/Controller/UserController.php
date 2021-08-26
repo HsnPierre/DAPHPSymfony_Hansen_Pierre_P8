@@ -17,14 +17,13 @@ class UserController extends AbstractController
      */
     public function listAction(UserVoter $userVoter)
     {
-        if($this->denyAccessUnlessGranted('user_edit', $this->getUser())){
+        $this->denyAccessUnlessGranted('user_edit', $this->getUser());
 
             $repository = $this->getDoctrine()->getRepository(User::class);
             $users = $repository->findAll();
 
             return $this->render('user/list.html.twig', ['users' => $users]);
 
-        }
     }
 
     /**
@@ -32,7 +31,8 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserVoter $userVoter)
     {
-        if($this->denyAccessUnlessGranted('user_edit', $this->getUser())){
+        $this->denyAccessUnlessGranted('user_edit', $this->getUser());
+
             $user = new User();
             $form = $this->createForm(UserType::class, $user);
 
@@ -51,7 +51,6 @@ class UserController extends AbstractController
             }
 
             return $this->render('user/create.html.twig', ['form' => $form->createView()]);
-        }
     }
 
     /**
@@ -59,7 +58,8 @@ class UserController extends AbstractController
      */
     public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder, UserVoter $userVoter)
     {
-        if($this->denyAccessUnlessGranted('user_edit', $this->getUser())){
+        $this->denyAccessUnlessGranted('user_edit', $this->getUser());
+
             $form = $this->createForm(UserType::class, $user);
 
             $form->handleRequest($request);
@@ -76,6 +76,5 @@ class UserController extends AbstractController
             }
 
             return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
-        }
     }
 }

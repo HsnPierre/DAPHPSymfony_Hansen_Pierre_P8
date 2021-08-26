@@ -26,29 +26,29 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function createAction(Request $request, TaskVoter $taskVoter)
+    public function createAction(Request $request)
     {
         $task = new Task();
-        if($this->denyAccessUnlessGranted('task_create', $task)){
-            $form = $this->createForm(TaskType::class, $task);
+        $this->denyAccessUnlessGranted('task_create', $task);
+        
+        $form = $this->createForm(TaskType::class, $task);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
 
-                $task->setAuthor($this->getUser());
+            $task->setAuthor($this->getUser());
 
-                $em->persist($task);
-                $em->flush();
+            $em->persist($task);
+            $em->flush();
 
-                $this->addFlash('success', 'La tâche a été bien été ajoutée.');
+            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
-                return $this->redirectToRoute('task_list');
-            }
-
-            return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+            return $this->redirectToRoute('task_list');
         }
+
+        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -56,24 +56,24 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request, TaskVoter $taskVoter)
     {
-        if($this->denyAccessUnlessGranted('task_edit', $task)){
-            $form = $this->createForm(TaskType::class, $task);
+        $this->denyAccessUnlessGranted('task_edit', $task);
 
-            $form->handleRequest($request);
+        $form = $this->createForm(TaskType::class, $task);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->getDoctrine()->getManager()->flush();
+        $form->handleRequest($request);
 
-                $this->addFlash('success', 'La tâche a bien été modifiée.');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
-                return $this->redirectToRoute('task_list');
-            }
+            $this->addFlash('success', 'La tâche a bien été modifiée.');
 
-            return $this->render('task/edit.html.twig', [
-                'form' => $form->createView(),
-                'task' => $task,
-            ]);
+            return $this->redirectToRoute('task_list');
         }
+
+        return $this->render('task/edit.html.twig', [
+            'form' => $form->createView(),
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -81,15 +81,14 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task, TaskVoter $taskVoter)
     {
-        if($this->denyAccessUnlessGranted('task_edit', $task)){
+        $this->denyAccessUnlessGranted('task_edit', $task);
 
-            $task->toggle(!$task->isDone());
-            $this->getDoctrine()->getManager()->flush();
+        $task->toggle(!$task->isDone());
+        $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
-            return $this->redirectToRoute('task_list');
-        }
+        return $this->redirectToRoute('task_list');
     }
 
     /**
@@ -97,14 +96,15 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task, TaskVoter $taskVoter)
     {
-        if($this->denyAccessUnlessGranted('task_delete', $task)){        
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($task);
-            $em->flush();
+        $this->denyAccessUnlessGranted('task_delete', $task);
+                
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($task);
+        $em->flush();
 
-            $this->addFlash('success', 'La tâche a bien été supprimée.');
+        $this->addFlash('success', 'La tâche a bien été supprimée.');
 
-            return $this->redirectToRoute('task_list');
-        }
+        return $this->redirectToRoute('task_list');
+        
     }
 }
