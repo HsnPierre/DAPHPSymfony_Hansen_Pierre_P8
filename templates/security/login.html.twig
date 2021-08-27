@@ -18,7 +18,7 @@
             <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
-            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <button type="submit" class="btn btn-primary" value="Se connecter">Se connecter</button>
         </fieldset>
     </form>
 {% endblock %}
