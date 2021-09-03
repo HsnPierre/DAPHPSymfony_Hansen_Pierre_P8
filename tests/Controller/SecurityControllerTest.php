@@ -42,7 +42,7 @@ class SecurityControllerTest extends WebTestCase
         $this->client->getCookieJar()->set($cookie);
 
         $crawler = $this->client->request('GET', '/');
-        $this->assertResponseIsSuccessful(); 
+        $this->assertResponseIsSuccessful();
 
         echo $this->client->getResponse()->getContent();       
     }

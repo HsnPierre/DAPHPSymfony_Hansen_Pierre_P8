@@ -15,7 +15,43 @@ class UserFixtures extends Fixture
         $tmp_roles = [['ROLE_USER'],['ROLE_USER','ROLE_ADMIN']];
         $faker = Faker\Factory::create();
 
-        for($i = 0; $i < 5; $i++){
+        $user = new User();
+        $user_reference = 'user-0';
+
+        $user->setUsername('User');
+        $user->setEmail('adress@mail.com');
+        $user->setRoles(["ROLUE_USER"]);
+        $user->setPassword(password_hash($tmp_password, PASSWORD_BCRYPT));
+
+        $this->addReference($user_reference, $user);
+
+        $manager->persist($user);
+
+        $user = new User();
+        $user_reference = 'user-1';
+
+        $user->setUsername('Admin');
+        $user->setEmail('admin@mail.com');
+        $user->setRoles(["ROLUE_USER","ROLE_ADMIN"]);
+        $user->setPassword(password_hash($tmp_password, PASSWORD_BCRYPT));
+
+        $this->addReference($user_reference, $user);
+
+        $manager->persist($user);
+
+        $user = new User();
+        $user_reference = 'user-2';
+
+        $user->setUsername('username');
+        $user->setEmail('adress@email.com');
+        $user->setRoles(["ROLUE_USER"]);
+        $user->setPassword(password_hash($tmp_password, PASSWORD_BCRYPT));
+
+        $this->addReference($user_reference, $user);
+
+        $manager->persist($user);
+
+        for($i = 3; $i < 8; $i++){
             $user = new User();
             $user_reference = 'user-'.$i;
 

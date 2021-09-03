@@ -6,10 +6,10 @@
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
-         convertDeprecationsToExceptions="false"
 >
+         <!-- convertDeprecationsToExceptions="false" -->
+        <!-- <ini name="display_errors" value="1" /> -->
     <php>
-        <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
@@ -27,6 +27,9 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <file>src/Kernel.php</file>
+        </exclude>
     </coverage>
 
     <listeners>
