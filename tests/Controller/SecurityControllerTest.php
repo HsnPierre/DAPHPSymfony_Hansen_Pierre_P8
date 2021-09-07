@@ -26,46 +26,34 @@ class SecurityControllerTest extends WebTestCase
     }
 
     public function testLoginUser()
-    {        
-        $userRepository = static::$container->get(UserRepository::class);
-        $session = self::$container->get('session');
+    {           
+        $crawler = $this->client->request('GET', '/login');
 
-        $testUser = $userRepository->findOneByUsername('User');
+        $form = $crawler->selectButton('Se connecter')->form();
+        $form['login[username]'] = 'User';
+        $form['login[password]'] = 'password';
 
-        $firewall = 'main';
+        $crawler = $this->client->submit($form);
+        $crawler = $this->client->followRedirect();
 
-        $token = new UsernamePasswordToken($testUser, null, $firewall, $testUser->getRoles());
-        $session->set('_security_'.$firewall, serialize($token));
-        $session->save();
+        $this->assertSame("Bienvenue sur Todo List, l'application vous permettant de gérer l'ensemble de vos tâches sans effort !", $crawler->filter('h1')->text());
 
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
-
-        $crawler = $this->client->request('GET', '/');
-        $this->assertResponseIsSuccessful();
-
-        echo $this->client->getResponse()->getContent();       
+        echo $this->client->getResponse()->getContent();
     }
 
     public function testLoginAdmin()
     {        
-        $userRepository = static::$container->get(UserRepository::class);
-        $session = self::$container->get('session');
+        $crawler = $this->client->request('GET', '/login');
 
-        $testUser = $userRepository->findOneByUsername('Admin');
+        $form = $crawler->selectButton('Se connecter')->form();
+        $form['login[username]'] = 'Admin';
+        $form['login[password]'] = 'password';
 
-        $firewall = 'main';
+        $crawler = $this->client->submit($form);
+        $crawler = $this->client->followRedirect();
 
-        $token = new UsernamePasswordToken($testUser, null, $firewall, $testUser->getRoles());
-        $session->set('_security_'.$firewall, serialize($token));
-        $session->save();
+        $this->assertSame("Gérer les utilisateurs", $crawler->filter('a.btn.btn-primary')->text());
 
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
-
-        $crawler = $this->client->request('GET', '/');
-        $this->assertResponseIsSuccessful(); 
-
-        echo $this->client->getResponse()->getContent();       
+        echo $this->client->getResponse()->getContent();      
     }
 }

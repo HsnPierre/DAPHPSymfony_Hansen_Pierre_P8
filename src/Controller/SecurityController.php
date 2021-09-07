@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\LoginType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,8 @@ class SecurityController extends AbstractController
         if($this->getUser()){
             return $this->redirectToRoute('homepage');
         }
+        
+        $loginform = $this->createForm(LoginType::class);
 
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -25,6 +28,7 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+            'loginform' => $loginform->createView()
             ]
         );
     }

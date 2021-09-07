@@ -20,7 +20,7 @@ class DefaultControllerTest extends WebTestCase
         $this->client->request('GET', '/');
         $crawler = $this->client->followRedirect();
 
-        $this->assertResponseRedirects('/login', 302);
+        $this->assertSame("Se connecter", $crawler->filter('a.btn.btn-success')->text());
 
         echo $this->client->getResponse()->getContent();  
     }

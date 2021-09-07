@@ -24,7 +24,7 @@ class TaskControllerTest extends WebTestCase
         $this->client->request('GET', '/tasks');
         $crawler = $this->client->followRedirect();
 
-        $this->assertResponseRedirects('/login', 302);
+        $this->assertSame("Se connecter", $crawler->filter('a.btn.btn-success')->text());
 
         echo $this->client->getResponse()->getContent();
     }
@@ -150,6 +150,40 @@ class TaskControllerTest extends WebTestCase
         ;
         $this->logIn();
         $crawler = $this->client->request('GET', '/tasks/'.$task->getId().'/edit');
+
+        $this->assertResponseStatusCodeSame(403, 'Access Denied.');
+
+        echo $this->client->getResponse()->getContent();
+    }
+
+    public function testToggleTask()
+    {
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByUsername('User');
+
+        $taskRepository = static::$container->get(TaskRepository::class);
+        $task = $taskRepository->findOneBy(['author' => $testUser]);
+        $this->logIn();
+        
+        $crawler = $this->client->request('GET', '/tasks/'.$task->getId().'/toggle');
+
+        $crawler = $this->client->followRedirect();
+
+        $this->assertSame(1, $crawler->filter('div.alert.alert-success')->count());
+
+        echo $this->client->getResponse()->getContent();
+    }
+
+    public function testToggleTaskDenied()
+    {
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByUsername('Admin');
+
+        $taskRepository = static::$container->get(TaskRepository::class);
+        $task = $taskRepository->findOneBy(['author' => $testUser])
+        ;
+        $this->logIn();
+        $crawler = $this->client->request('GET', '/tasks/'.$task->getId().'/toggle');
 
         $this->assertResponseStatusCodeSame(403, 'Access Denied.');
 
