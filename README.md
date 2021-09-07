@@ -24,4 +24,4 @@ A noter que le mot de passe pour les utilisateurs générés est "motdepasse".
 
 Le code coverage généré est stocké dans le dossier "coverage" à la racine du projet. Pour le consulter, il suffit de se rendre sur le fichier "index.html".
 
-Afin d'éxecuter les différents test il est nécessaire de créer une seconde base de données (ayant le même nom que la base de données principale suivi du "_test"). Il sera également nécessaire de charger les fixtures dans cette base avec la commande `phh bin/console doctrine:fixtures:load --env=test`.
+Afin d'éxecuter les différents test il est nécessaire de créer une seconde base de données (ayant le même nom que la base de données principale suivi du "_test"). Il sera également nécessaire de charger les fixtures dans cette base avec la commande `php bin/console doctrine:fixtures:load --env=test`.
