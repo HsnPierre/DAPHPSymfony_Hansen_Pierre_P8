@@ -35,8 +35,7 @@ Then, you can describe your proposal in a **New Issue** taking care to follow th
 * Apply the **"enhancement" label** to the issue.
 
 * ### Styleguides
-
-* **Git Commit**
+* #### **Git Commit**
 
 First of all, before writing a single line of code, create a new branch from the dev one to work on.
 Next, be sure to commit frequently, please avoid huge commit with all of your changes and prefer several small commits which contains related file -for example if you work on authentication and task management, create a first commit about authentication and a commit about task management-. Next, commits should be done following these rules.
@@ -48,11 +47,11 @@ For example, if you add the "Task creation", the commit could be *Task Managemen
 * If you are working on documentation **precise shortly why** (for example *correcting mistakes*, *adding forgetted informations*, ...).
 * Comment every commits and **link them to the issue** they are related to.
 
-* **PHP**
+* #### **PHP**
 
 The committed PHP code should be **clear and legible**, it should follows the indentation, blank line could be use to avoid huge stack of lines, and as far as possible **document your code**, it isn't necessary to comment each line of code but a few lines before the added functions to briefly explain the following code would be appreciated.
 
-* **Html/Twig**
+* #### **Html/Twig**
 
 The committed html code should be **clear and legible**, it should follow the indentation. Don't hesitate to follow the Twig documentation to respect the **code style and standards**.
 The naming of the file should respect the standards of the application. For example a twig file which contains the "adding a task" form should be put in "template/task" and named "create.html.twig".
