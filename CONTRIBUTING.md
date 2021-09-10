@@ -4,10 +4,10 @@ First of all, thank you for wishing to contribute to the ToDo&Co Application.
 This documentation will explain how you can help and inform you of the different rules.
 
 #### Table Of Content
-[Bug tracking](#bug-tracking)
-[New Enhancement](#new-enhancement)
-[Coding Style](#coding-style)
-[Pull request](#pull-request)
+[Bug tracking](#bug-tracking)  
+[New Enhancement](#new-enhancement)  
+[Styleguides](#styleguides)  
+[Pull request](#pull-request)  
 
 ## How to contribute
 * ### Bug tracking
