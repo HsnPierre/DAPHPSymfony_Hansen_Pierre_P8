@@ -1,0 +1,13 @@
+{% extends 'error.html.twig' %}
+
+{% block header_title %}
+    <div class="container p-5 alert alert-danger text-center" role="alert">
+        <strong>Oops !</strong><h1>Page introuvable</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <p class="text-center">
+        La page à laquelle vous tentez d'accéder est introuvable, vérifiez l'url ou <a href="{{ path('homepage') }}">cliquez ici</a> pour retourner à la page d'accueil.
+    </p>
+{% endblock %}

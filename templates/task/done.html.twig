@@ -2,7 +2,7 @@
 
 {% block header_title %}
     <div class="text-center">
-        <h3>Liste des tâches</h3>
+        <h3>Liste des tâches terminées</h3>
     </div>
 {% endblock %}
 
@@ -60,8 +60,8 @@
             </div>
         </div>
         {% else %}
-            <div class="alert alert-warning" role="alert">
-                Il n'y a pas encore de tâche enregistrée. <a href="{{ path('task_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
+            <div class="alert alert-warning text-center" role="alert">
+                Il n'y a pas encore de tâche terminée.
             </div>
         {% endfor %}
     </div>
