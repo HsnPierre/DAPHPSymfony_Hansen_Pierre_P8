@@ -23,12 +23,6 @@ class LoginType extends AbstractType
                 'required' => true,
                 'label' => 'Mot de passe'
             ])
-            // ->add('targed', HiddenType::class, [
-            //     'mapped' => false
-            // ])
-            // ->add('csrf', HiddenType::class, [
-            //     'mapped' => false
-            // ])
         ;
     }
 }

@@ -62,10 +62,13 @@ class Task
         return $this->createdAt;
     }
 
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
+    /**
+     * Cette fonction n'est pas utilisée dans le code actuelle mais est laissée à disposition pour d'éventuelles mises à jour.
+     */
+    // public function setCreatedAt($createdAt)
+    // {
+    //     $this->createdAt = $createdAt;
+    // }
 
     public function getTitle()
     {

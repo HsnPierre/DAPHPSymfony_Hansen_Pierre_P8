@@ -20,7 +20,7 @@ class UserFixtures extends Fixture
 
         $user->setUsername('User');
         $user->setEmail('adress@mail.com');
-        $user->setRoles(["ROLUE_USER"]);
+        $user->setRoles(["ROLE_USER"]);
         $user->setPassword(password_hash($tmp_password, PASSWORD_BCRYPT));
 
         $this->addReference($user_reference, $user);
@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
 
         $user->setUsername('Admin');
         $user->setEmail('admin@mail.com');
-        $user->setRoles(["ROLUE_USER","ROLE_ADMIN"]);
+        $user->setRoles(["ROLE_USER","ROLE_ADMIN"]);
         $user->setPassword(password_hash($tmp_password, PASSWORD_BCRYPT));
 
         $this->addReference($user_reference, $user);
@@ -44,7 +44,7 @@ class UserFixtures extends Fixture
 
         $user->setUsername('username');
         $user->setEmail('adress@email.com');
-        $user->setRoles(["ROLUE_USER"]);
+        $user->setRoles(["ROLE_USER"]);
         $user->setPassword(password_hash($tmp_password, PASSWORD_BCRYPT));
 
         $this->addReference($user_reference, $user);

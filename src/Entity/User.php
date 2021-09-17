@@ -130,15 +130,18 @@ class User implements UserInterface
     {
     }
 
-    public function getTasks()
-    {
-        return $this->tasks;
-    }
+    /**
+     * Ces fonctions ne sont pas utilisées dans les différents fichiers mais sont laissées à disposition pour d'éventuelles mises à jour.
+     */
+    // public function getTasks()
+    // {
+    //     return $this->tasks;
+    // }
 
-    public function setTasks($tasks)
-    {
-        $this->tasks = $tasks;
+    // public function setTasks($tasks)
+    // {
+    //     $this->tasks = $tasks;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

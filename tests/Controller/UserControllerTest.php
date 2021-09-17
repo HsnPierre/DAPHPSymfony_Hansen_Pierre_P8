@@ -198,6 +198,8 @@ class UserControllerTest extends WebTestCase
         $form['user[plainPassword][first]'] = '&Azertyuiop1';
         $form['user[plainPassword][second]'] = '&Azertyuiop1';
         $user->getEmail() == 'adress@email.com' ? $form['user[email]'] = 'adress_edit@email.com' : $form['user[email]'] = 'adress@email.com';
+        $form['user[roles][0]'] = "ROLE_ADMIN";
+        $form['user[roles][1]'] = "ROLE_USER";
 
         $this->client->submit($form);
 
