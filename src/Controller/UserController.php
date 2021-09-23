@@ -15,7 +15,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users", name="user_list")
      */
-    public function listAction(UserVoter $userVoter)
+    public function listAction()
     {
         $this->denyAccessUnlessGranted('user_edit', $this->getUser());
 
@@ -29,7 +29,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserVoter $userVoter)
+    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->denyAccessUnlessGranted('user_edit', $this->getUser());
 
@@ -56,7 +56,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder, UserVoter $userVoter)
+    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->denyAccessUnlessGranted('user_edit', $this->getUser());
 
