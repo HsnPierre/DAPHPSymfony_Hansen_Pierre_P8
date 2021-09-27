@@ -1,0 +1,18 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+    providers:
+        users_in_memory:
+            entity:
+                class: App\Entity\User
+                property: username
+    firewalls:
+        main:
+            http_basic: ~
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
