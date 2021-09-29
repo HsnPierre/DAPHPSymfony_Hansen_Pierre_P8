@@ -44,6 +44,21 @@
                     <a href="{{ path('task_edit', {'id' : task.id }) }}">
                         <h4>{{ task.title }}</h4>
                     </a>  
+                    {% elseif task.author == null %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <div class="col">
+                        <form action="{{ path('task_toggle', {'id' : task.id }) }}">
+                            <button class="btn btn-success btn-sm pull-left">{% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}</button>
+                        </form>
+                        <form action="{{ path('task_delete', {'id' : task.id }) }}">
+                            <button class="btn btn-danger btn-sm pull-left">Supprimer</button>
+                        </form>
+                    </div>
+                    <br>
+                    <a href="{{ path('task_edit', {'id' : task.id }) }}">
+                        <h4>{{ task.title }}</h4>
+                    </a>
+                    {% endif %}
                     {% else %}
                     <h4>{{ task.title }}</h4>
                     {% endif %}
